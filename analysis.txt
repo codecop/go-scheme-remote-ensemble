@@ -1,0 +1,19 @@
+
+
+Data Flow / Algorithm / Steps / 
+- File name
+- read file -> string
+- string -> scan -> list of tokens (type/value)
+    - types of tokens: open brackets, close brackets, names (function, assignment, …), numbers, strings/quotes, #t, #f, symbols
+- list of tokens -> tree
+    - Content: tokens
+    - approach: new children if reach open bracket
+    - check for enough brackets
+- language semantic checks, type checks
+    - number of arguments, string function need to be string
+- Tree -> parsing/error handling and interpreting
+- -> execution -> result
+- result -> print
+
+Design (what goes where)
+- 
