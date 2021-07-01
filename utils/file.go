@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 	"regexp"
+	"strings"
 )
 
 func removeLineBreaks(content string) string {
@@ -11,15 +12,18 @@ func removeLineBreaks(content string) string {
 	return re.ReplaceAllString(content, " ")
 }
 
-func removeSpaces(content string) string {
-	re := regexp.MustCompile(`\s+`)
-	openingBracketSpaces := regexp.MustCompile(` \( |\( | \(`)
-	closingBracketSpaces := regexp.MustCompile(` \) |\) | \)`)
-	return closingBracketSpaces.ReplaceAllString(
-		openingBracketSpaces.ReplaceAllString(
-			re.ReplaceAllString(content, " "),
-			"("),
-		")")
+func addSpacesToBrackets(content string) string {
+	addSpacesToBrackets := regexp.MustCompile(`(\(|\))`)
+	return strings.TrimSpace(
+		removeMultipleSpaces(
+			addSpacesToBrackets.ReplaceAllString(content, " $1 "),
+		),
+	)
+}
+
+func removeMultipleSpaces(content string) string {
+	removeMultipleSpaces := regexp.MustCompile(`\s+`)
+	return removeMultipleSpaces.ReplaceAllString(content, " ")
 }
 
 func ReadFile(fileName string) (content string) {
@@ -29,6 +33,11 @@ func ReadFile(fileName string) (content string) {
 	}
 	content = string(bytes)
 	content = removeLineBreaks(content)
-	content = removeSpaces(content)
+	content = removeMultipleSpaces(content)
 	return
+}
+
+func SplitTokens(content string) []string {
+	//"( if ( > 2 3 ) )"
+	return strings.Split(content, " ")
 }
