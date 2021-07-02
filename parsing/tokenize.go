@@ -1,8 +1,6 @@
-package utils
+package parsing
 
 import (
-	"io/ioutil"
-	"log"
 	"regexp"
 	"strings"
 )
@@ -10,6 +8,10 @@ import (
 func removeLineBreaks(content string) string {
 	re := regexp.MustCompile(`\r?\n`)
 	return re.ReplaceAllString(content, " ")
+}
+
+func Tokenize(content string) []string {
+	return strings.Split(content, " ")
 }
 
 func addSpacesToBrackets(content string) string {
@@ -26,18 +28,9 @@ func removeMultipleSpaces(content string) string {
 	return removeMultipleSpaces.ReplaceAllString(content, " ")
 }
 
-func ReadFile(fileName string) (content string) {
-	bytes, err := ioutil.ReadFile(fileName)
-	if err != nil {
-		log.Fatal(err)
-	}
+func ParseFile(bytes []byte) (content string) {
 	content = string(bytes)
 	content = removeLineBreaks(content)
 	content = removeMultipleSpaces(content)
 	return
-}
-
-func SplitTokens(content string) []string {
-	//"( if ( > 2 3 ) )"
-	return strings.Split(content, " ")
 }
