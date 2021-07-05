@@ -49,3 +49,18 @@ Potential components
 - analyse syntax
 - build up a tree
 - separate into packages    
+
+
+Tokenizer
+- input:
+    - string
+    - cleaned
+- output:
+    - list of tokens
+        - what type is it? (e.g. slice, linked list, interface, struct)
+        - brackets, identifiers (func names, variables), values (number, "string", boolean #t#f, other literals)
+        - ignore symbols 
+        - (extend later if necessary)
+    - token (struct, interface)
+        - value (e.g. identifier -> string, number -> number, bracket -> nil)
+        - type
