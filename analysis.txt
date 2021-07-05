@@ -15,5 +15,37 @@ Data Flow / Algorithm / Steps /
 - -> execution -> result
 - result -> print
 
+Paul -> Corinna -> Pavel -> Sergiu -> Gery -> 
+
 Design (what goes where)
-- 
+- inputs
+    - file path/name/extension
+    - file
+        - what do expect in file
+        - what to do about whitespace, delimiters, new line, comments (;)
+        - encoding of file (utf8)
+- output 
+    - text of all evaluated expressions in the file
+    - one line per expression
+    - if error, see line number, description
+
+Potential components
+- file handling
+- tokenizing 
+- parsing
+- semantic checks (checks for all levels (e.g., tokens, tree))
+- error collector
+    - line numbers
+    
+- execution
+- display
+- main component
+
+- Discussion
+    - checks in component or in each component
+    
+- move input into tokenizer
+    - write in one file
+- analyse syntax
+- build up a tree
+- separate into packages    
