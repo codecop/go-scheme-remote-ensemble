@@ -1,4 +1,5 @@
-/* Tokenizer
+/*
+Tokenizer
 - input:
     - string
     - cleaned
@@ -16,7 +17,8 @@ package tokenizer_test
 
 import (
 	"testing"
-	"tokenizer"
+
+	"codecop.org/scheme/tokenizer"
 
 	"github.com/stretchr/testify/assert"
 )

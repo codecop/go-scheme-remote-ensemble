@@ -1,4 +1,4 @@
-module scheme
+module codecop.org/scheme
 
 go 1.12
 
