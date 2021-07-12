@@ -30,4 +30,13 @@ func TestEmptyStringTokenizesIntoEmpty(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-// TODO return an error for the function
+func TestNumberTokenizes(t *testing.T) {
+	assert := assert.New(t)
+	number := "1"
+	tokens, err := tokenizer.Scan(number)
+	assert.Equal(
+		[]tokenizer.Token{tokenizer.NumberToken{Value: 1}},
+		tokens,
+	)
+	assert.NoError(err)
+}
