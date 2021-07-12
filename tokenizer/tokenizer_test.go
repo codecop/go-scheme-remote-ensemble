@@ -40,3 +40,5 @@ func TestNumberTokenizes(t *testing.T) {
 	)
 	assert.NoError(err)
 }
+
+// TODO: repeat with number 2 and refactor to generalize the function scan
