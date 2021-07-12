@@ -26,5 +26,7 @@ import (
 func TestEmptyStringTokenizesIntoEmpty(t *testing.T) {
 	cleanedString := ""
 	tokens := tokenizer.Scan(cleanedString)
-	assert.Equal(t, make([]tokenizer.Token, 0), tokens)
+	assert.Nil(t, tokens)
 }
+
+// TODO return an error for the function
