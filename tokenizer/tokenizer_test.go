@@ -30,24 +30,18 @@ func TestEmptyStringTokenizesIntoEmpty(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestNumberOneTokenizes(t *testing.T) {
-	assert := assert.New(t)
-	number := "1"
-	tokens, err := tokenizer.Scan(number)
-	assert.Equal(
-		[]tokenizer.Token{tokenizer.NumberToken{Value: 1}},
-		tokens,
-	)
-	assert.NoError(err)
-}
-
-func TestNumberTokenizes(t *testing.T) {
+func TestTokenizesWithoutErrors(t *testing.T) {
 	assert := assert.New(t)
 	testCases := []struct {
 		name           string
 		cleanedString  string
 		expectedTokens []tokenizer.Token
 	}{
+		{
+			name:           "param 1",
+			cleanedString:  "1",
+			expectedTokens: []tokenizer.Token{tokenizer.NumberToken{Value: 1}},
+		},
 		{
 			name:           "param 3",
 			cleanedString:  "3",
@@ -62,5 +56,3 @@ func TestNumberTokenizes(t *testing.T) {
 		})
 	}
 }
-
-// TODO: refactor to generalize the function scan
