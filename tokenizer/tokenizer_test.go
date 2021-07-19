@@ -41,15 +41,26 @@ func TestNumberOneTokenizes(t *testing.T) {
 	assert.NoError(err)
 }
 
-func TestNumberThreeTokenizes(t *testing.T) {
+func TestNumberTokenizes(t *testing.T) {
 	assert := assert.New(t)
-	number := "3"
-	tokens, err := tokenizer.Scan(number)
-	assert.Equal(
-		[]tokenizer.Token{tokenizer.NumberToken{Value: 3}},
-		tokens,
-	)
-	assert.NoError(err)
+	testCases := []struct {
+		name           string
+		cleanedString  string
+		expectedTokens []tokenizer.Token
+	}{
+		{
+			name:           "param 3",
+			cleanedString:  "3",
+			expectedTokens: []tokenizer.Token{tokenizer.NumberToken{Value: 3}},
+		},
+	}
+	for _, tt := range testCases {
+		t.Run(tt.name, func(t *testing.T) {
+			tokens, err := tokenizer.Scan(tt.cleanedString)
+			assert.Equal(tt.expectedTokens, tokens)
+			assert.NoError(err)
+		})
+	}
 }
 
 // TODO: refactor to generalize the function scan
