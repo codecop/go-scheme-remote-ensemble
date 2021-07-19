@@ -38,14 +38,24 @@ func TestTokenizesWithoutErrors(t *testing.T) {
 		expectedTokens []tokenizer.Token
 	}{
 		{
-			name:           "param 1",
+			name:           "number 1",
 			cleanedString:  "1",
 			expectedTokens: []tokenizer.Token{tokenizer.NumberToken{Value: 1}},
 		},
 		{
-			name:           "param 3",
+			name:           "number 3",
 			cleanedString:  "3",
 			expectedTokens: []tokenizer.Token{tokenizer.NumberToken{Value: 3}},
+		},
+		{
+			name:           "boolean true",
+			cleanedString:  "#t",
+			expectedTokens: []tokenizer.Token{tokenizer.BooleanToken{Value: true}},
+		},
+		{
+			name:           "boolean false",
+			cleanedString:  "#f",
+			expectedTokens: []tokenizer.Token{tokenizer.BooleanToken{Value: false}},
 		},
 	}
 	for _, tt := range testCases {

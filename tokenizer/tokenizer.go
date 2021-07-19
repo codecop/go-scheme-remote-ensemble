@@ -9,9 +9,20 @@ type NumberToken struct {
 	Value int
 }
 
+type BooleanToken struct {
+	Value bool
+}
+
 func Scan(cleanedString string) ([]Token, error) {
 	if len(cleanedString) == 0 {
 		return nil, nil
+	}
+
+	if cleanedString == "#t" {
+		return []Token{BooleanToken{Value: true}}, nil
+	}
+	if cleanedString == "#f" {
+		return []Token{BooleanToken{Value: false}}, nil
 	}
 
 	number, _ := strconv.Atoi(cleanedString)
