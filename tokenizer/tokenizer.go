@@ -17,7 +17,7 @@ func Scan(cleanedString string) ([]Token, error) {
 	if len(cleanedString) == 0 {
 		return nil, nil
 	}
-
+	// TODO: extract token classification
 	if cleanedString == "#t" {
 		return []Token{BooleanToken{Value: true}}, nil
 	}
@@ -28,3 +28,7 @@ func Scan(cleanedString string) ([]Token, error) {
 	number, _ := strconv.Atoi(cleanedString)
 	return []Token{NumberToken{Value: number}}, nil
 }
+
+/**
+* TODO: create slice in the beginning and append afterwards with tokens
+ */
