@@ -30,7 +30,7 @@ func TestEmptyStringTokenizesIntoEmpty(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestNumberTokenizes(t *testing.T) {
+func TestNumberOneTokenizes(t *testing.T) {
 	assert := assert.New(t)
 	number := "1"
 	tokens, err := tokenizer.Scan(number)
@@ -41,4 +41,15 @@ func TestNumberTokenizes(t *testing.T) {
 	assert.NoError(err)
 }
 
-// TODO: repeat with number 2 and refactor to generalize the function scan
+func TestNumberThreeTokenizes(t *testing.T) {
+	assert := assert.New(t)
+	number := "3"
+	tokens, err := tokenizer.Scan(number)
+	assert.Equal(
+		[]tokenizer.Token{tokenizer.NumberToken{Value: 3}},
+		tokens,
+	)
+	assert.NoError(err)
+}
+
+// TODO: refactor to generalize the function scan

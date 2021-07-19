@@ -1,5 +1,7 @@
 package tokenizer
 
+import "strconv"
+
 type Token interface {
 }
 
@@ -11,5 +13,7 @@ func Scan(cleanedString string) ([]Token, error) {
 	if len(cleanedString) == 0 {
 		return nil, nil
 	}
-	return []Token{NumberToken{Value: 1}}, nil
+
+	number, _ := strconv.Atoi(cleanedString)
+	return []Token{NumberToken{Value: number}}, nil
 }
