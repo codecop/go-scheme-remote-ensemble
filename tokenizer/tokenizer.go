@@ -31,28 +31,41 @@ func Scan(cleanedString string) ([]Token, error) {
 	if len(cleanedString) == 0 {
 		return nil, nil
 	}
-	// TODO: extract token classification
 
-	if IsBooleanToken(cleanedString) {
-		return []Token{NewBooleanToken(cleanedString)}, nil
+	isFuncs := []func(token string) bool{
+		IsBooleanToken,
+		IsNumberToken,
 	}
 
-	if IsNumberToken(cleanedString) {
-		return []Token{NewNumberToken(cleanedString)}, nil
+	newTokenFuncs := []func(token string) Token{
+		NewBooleanToken,
+		NewNumberToken,
+	}
+
+	if isFuncs[0](cleanedString) {
+		return []Token{newTokenFuncs[0](cleanedString)}, nil
+	}
+
+	if isFuncs[1](cleanedString) {
+		return []Token{newTokenFuncs[1](cleanedString)}, nil
 	}
 
 	return nil, fmt.Errorf("no valid token %s", cleanedString)
 }
 
-func NewNumberToken(token string) NumberToken {
+func NewNumberToken(token string) Token {
 	number, _ := strconv.Atoi(token)
 	return NumberToken{Value: number}
 }
 
-func NewBooleanToken(token string) BooleanToken {
+func NewBooleanToken(token string) Token {
 	return BooleanToken{Value: token == "#t"}
 }
 
 /**
 * TODO: create slice in the beginning and append afterwards with tokens
+ */
+
+/**
+* parents (), edged brackets <>, square brackets [], curly braces {}
  */
