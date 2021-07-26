@@ -2,6 +2,7 @@ package tokenizer
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
 )
 
@@ -11,6 +12,11 @@ type Token interface {
 func IsNumberToken(cleanedString string) bool {
 	_, err := strconv.Atoi(cleanedString)
 	return err == nil
+}
+
+func IsBooleanToken(cleanedString string) bool {
+	reg := regexp.MustCompile("(#t|#f)")
+	return reg.MatchString(cleanedString)
 }
 
 type NumberToken struct {
@@ -26,11 +32,9 @@ func Scan(cleanedString string) ([]Token, error) {
 		return nil, nil
 	}
 	// TODO: extract token classification
-	if cleanedString == "#t" {
-		return []Token{BooleanToken{Value: true}}, nil
-	}
-	if cleanedString == "#f" {
-		return []Token{BooleanToken{Value: false}}, nil
+
+	if IsBooleanToken(cleanedString) {
+		return []Token{BooleanToken{Value: cleanedString == "#t"}}, nil
 	}
 
 	if IsNumberToken(cleanedString) {
