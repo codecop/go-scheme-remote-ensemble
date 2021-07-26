@@ -16,6 +16,7 @@ Tokenizer
 package tokenizer_test
 
 import (
+	"fmt"
 	"testing"
 
 	"codecop.org/scheme/tokenizer"
@@ -63,6 +64,27 @@ func TestTokenizesWithoutErrors(t *testing.T) {
 			tokens, err := tokenizer.Scan(tt.cleanedString)
 			assert.Equal(tt.expectedTokens, tokens)
 			assert.NoError(err)
+		})
+	}
+}
+
+func TestTokenizesWithErrors(t *testing.T) {
+	assert := assert.New(t)
+	testCases := []struct {
+		name          string
+		cleanedString string
+		expectedError error
+	}{
+		{
+			name:          "unhandled token",
+			cleanedString: "#tt",
+			expectedError: fmt.Errorf("no valid token #tt"),
+		},
+	}
+	for _, tt := range testCases {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := tokenizer.Scan(tt.cleanedString)
+			assert.Equal(tt.expectedError, err)
 		})
 	}
 }

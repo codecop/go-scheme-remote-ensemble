@@ -9,14 +9,14 @@ import (
 type Token interface {
 }
 
-func IsNumberToken(cleanedString string) bool {
-	_, err := strconv.Atoi(cleanedString)
+func IsNumberToken(token string) bool {
+	_, err := strconv.Atoi(token)
 	return err == nil
 }
 
-func IsBooleanToken(cleanedString string) bool {
-	reg := regexp.MustCompile("(#t|#f)")
-	return reg.MatchString(cleanedString)
+func IsBooleanToken(token string) bool {
+	trueOrFalse := regexp.MustCompile("^#[tf]$")
+	return trueOrFalse.MatchString(token)
 }
 
 type NumberToken struct {
