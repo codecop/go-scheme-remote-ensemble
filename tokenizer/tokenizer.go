@@ -1,8 +1,16 @@
 package tokenizer
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
 type Token interface {
+}
+
+func IsNumberToken(cleanedString string) bool {
+	_, err := strconv.Atoi(cleanedString)
+	return err == nil
 }
 
 type NumberToken struct {
@@ -25,8 +33,13 @@ func Scan(cleanedString string) ([]Token, error) {
 		return []Token{BooleanToken{Value: false}}, nil
 	}
 
-	number, _ := strconv.Atoi(cleanedString)
-	return []Token{NumberToken{Value: number}}, nil
+	if IsNumberToken(cleanedString) {
+		number, _ := strconv.Atoi(cleanedString)
+		return []Token{NumberToken{Value: number}}, nil
+	}
+
+	return nil, fmt.Errorf("no valid token %s", cleanedString)
+
 }
 
 /**
