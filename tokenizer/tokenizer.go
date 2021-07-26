@@ -34,16 +34,23 @@ func Scan(cleanedString string) ([]Token, error) {
 	// TODO: extract token classification
 
 	if IsBooleanToken(cleanedString) {
-		return []Token{BooleanToken{Value: cleanedString == "#t"}}, nil
+		return []Token{NewBooleanToken(cleanedString)}, nil
 	}
 
 	if IsNumberToken(cleanedString) {
-		number, _ := strconv.Atoi(cleanedString)
-		return []Token{NumberToken{Value: number}}, nil
+		return []Token{NewNumberToken(cleanedString)}, nil
 	}
 
 	return nil, fmt.Errorf("no valid token %s", cleanedString)
+}
 
+func NewNumberToken(token string) NumberToken {
+	number, _ := strconv.Atoi(token)
+	return NumberToken{Value: number}
+}
+
+func NewBooleanToken(token string) BooleanToken {
+	return BooleanToken{Value: token == "#t"}
 }
 
 /**
