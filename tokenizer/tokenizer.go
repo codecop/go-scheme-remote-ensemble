@@ -42,12 +42,13 @@ func Scan(cleanedString string) ([]Token, error) {
 		NewNumberToken,
 	}
 
-	if isFuncs[0](cleanedString) {
-		return []Token{newTokenFuncs[0](cleanedString)}, nil
-	}
+	//TODO refactor to align isFuncs and newTokenFuncs
+	//TODO create slice of structs of functions
 
-	if isFuncs[1](cleanedString) {
-		return []Token{newTokenFuncs[1](cleanedString)}, nil
+	for i, isFunc := range isFuncs {
+		if isFunc(cleanedString) {
+			return []Token{newTokenFuncs[i](cleanedString)}, nil
+		}
 	}
 
 	return nil, fmt.Errorf("no valid token %s", cleanedString)
