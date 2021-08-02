@@ -27,15 +27,22 @@ type BooleanToken struct {
 	Value bool
 }
 
-type BoolScanner struct {
+type Scanner struct {
 	IsToken  func(token string) bool
 	NewToken func(token string) Token
 }
 
-func NewBoolScanner() BoolScanner {
-	return BoolScanner{
+func NewBoolScanner() Scanner {
+	return Scanner{
 		IsToken:  IsBooleanToken,
 		NewToken: NewBooleanToken,
+	}
+}
+
+func NewNumberScanner() Scanner {
+	return Scanner{
+		IsToken:  IsNumberToken,
+		NewToken: NewNumberToken,
 	}
 }
 

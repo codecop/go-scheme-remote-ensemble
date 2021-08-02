@@ -89,15 +89,33 @@ func TestTokenizesWithErrors(t *testing.T) {
 	}
 }
 
-func TestScanBool(t *testing.T) {
+func TestScanner(t *testing.T) {
 	a := assert.New(t)
-	cleanedString := "#t"
-	var token tokenizer.Token
-	bs := tokenizer.NewBoolScanner()
 
-	if bs.IsToken(cleanedString) {
-		token = bs.NewToken(cleanedString)
+	testCases := []struct {
+		name          string
+		cleanedString string
+		expectedToken tokenizer.Token
+		scanner       tokenizer.Scanner
+	}{
+		{
+			name:          "is bool token with value true",
+			cleanedString: "#t",
+			scanner:       tokenizer.NewBoolScanner(),
+			expectedToken: tokenizer.BooleanToken{Value: true},
+		},
+		{
+			name:          "is number token with value 666",
+			cleanedString: "666",
+			scanner:       tokenizer.NewNumberScanner(),
+			expectedToken: tokenizer.NumberToken{Value: 666},
+		},
 	}
 
-	a.Equal(token, tokenizer.BooleanToken{Value: true})
+	for _, tt := range testCases {
+		t.Run(tt.name, func(t *testing.T) {
+			a.True(tt.scanner.IsToken(tt.cleanedString))
+			a.Equal(tt.expectedToken, tt.scanner.NewToken(tt.cleanedString))
+		})
+	}
 }
