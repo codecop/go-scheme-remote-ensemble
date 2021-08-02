@@ -88,3 +88,16 @@ func TestTokenizesWithErrors(t *testing.T) {
 		})
 	}
 }
+
+func TestScanBool(t *testing.T) {
+	a := assert.New(t)
+	cleanedString := "#t"
+	var token tokenizer.Token
+	bs := tokenizer.NewBoolScanner()
+
+	if bs.IsToken(cleanedString) {
+		token = bs.NewToken(cleanedString)
+	}
+
+	a.Equal(token, tokenizer.BooleanToken{Value: true})
+}

@@ -27,6 +27,18 @@ type BooleanToken struct {
 	Value bool
 }
 
+type BoolScanner struct {
+	IsToken  func(token string) bool
+	NewToken func(token string) Token
+}
+
+func NewBoolScanner() BoolScanner {
+	return BoolScanner{
+		IsToken:  IsBooleanToken,
+		NewToken: NewBooleanToken,
+	}
+}
+
 func Scan(cleanedString string) ([]Token, error) {
 	if len(cleanedString) == 0 {
 		return nil, nil
