@@ -110,6 +110,12 @@ func TestScanner(t *testing.T) {
 			scanner:       tokenizer.NewNumberScanner(),
 			expectedToken: tokenizer.NumberToken{Value: 666},
 		},
+		{
+			name:          "is parenthesis token with value (",
+			cleanedString: "(",
+			scanner:       tokenizer.NewParenthesisScanner(),
+			expectedToken: tokenizer.ParenthesisToken{Value: "("},
+		},
 	}
 
 	for _, tt := range testCases {
