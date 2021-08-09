@@ -116,6 +116,12 @@ func TestScanner(t *testing.T) {
 			scanner:       tokenizer.NewParenthesisScanner(),
 			expectedToken: tokenizer.ParenthesisToken{Value: "("},
 		},
+		{
+			name:          "is parenthesis token with value )",
+			cleanedString: ")",
+			scanner:       tokenizer.NewParenthesisScanner(),
+			expectedToken: tokenizer.ParenthesisToken{Value: ")"},
+		},
 	}
 
 	for _, tt := range testCases {

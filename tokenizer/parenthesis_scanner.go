@@ -9,8 +9,7 @@ func IsParenthesisToken(token string) bool {
 }
 
 func NewParenthesisToken(token string) Token {
-	parenthesis := "("
-	return ParenthesisToken{Value: parenthesis}
+	return ParenthesisToken{Value: token}
 }
 
 func NewParenthesisScanner() Scanner {
