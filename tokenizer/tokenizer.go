@@ -12,15 +12,15 @@ type Scanner struct {
 	NewToken func(token string) Token
 }
 
+var scanners = []Scanner{
+	NewNumberScanner(),
+	NewBoolScanner(),
+}
+
 func Scan(cleanedString string) ([]Token, error) {
 	if len(cleanedString) == 0 {
 		return nil, nil
 	}
-
-	scanners := []Scanner{NewNumberScanner(), NewBoolScanner()}
-
-	//TODO refactor to align isFuncs and newTokenFuncs
-	//TODO create slice of structs of functions
 
 	for _, scanner := range scanners {
 		if scanner.IsToken(cleanedString) {
