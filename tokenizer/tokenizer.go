@@ -13,8 +13,9 @@ type Scanner struct {
 }
 
 var scanners = []Scanner{
-	NewNumberScanner(),
 	NewBoolScanner(),
+	NewNumberScanner(),
+	NewParenthesisScanner(),
 }
 
 func Scan(cleanedString string) ([]Token, error) {

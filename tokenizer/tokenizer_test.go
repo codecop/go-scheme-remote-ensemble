@@ -58,6 +58,11 @@ func TestTokenizesWithoutErrors(t *testing.T) {
 			cleanedString:  "#f",
 			expectedTokens: []tokenizer.Token{tokenizer.BooleanToken{Value: false}},
 		},
+		{
+			name:           "left parenthesis",
+			cleanedString:  "(",
+			expectedTokens: []tokenizer.Token{tokenizer.ParenthesisToken{Value: "("}},
+		},
 	}
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
