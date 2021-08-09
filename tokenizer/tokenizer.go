@@ -51,22 +51,14 @@ func Scan(cleanedString string) ([]Token, error) {
 		return nil, nil
 	}
 
-	isFuncs := []func(token string) bool{
-		IsBooleanToken,
-		IsNumberToken,
-	}
-
-	newTokenFuncs := []func(token string) Token{
-		NewBooleanToken,
-		NewNumberToken,
-	}
+	scanners := []Scanner{NewNumberScanner(), NewBoolScanner()}
 
 	//TODO refactor to align isFuncs and newTokenFuncs
 	//TODO create slice of structs of functions
 
-	for i, isFunc := range isFuncs {
-		if isFunc(cleanedString) {
-			return []Token{newTokenFuncs[i](cleanedString)}, nil
+	for _, scanner := range scanners {
+		if scanner.IsToken(cleanedString) {
+			return []Token{scanner.NewToken(cleanedString)}, nil
 		}
 	}
 
@@ -81,6 +73,8 @@ func NewNumberToken(token string) Token {
 func NewBooleanToken(token string) Token {
 	return BooleanToken{Value: token == "#t"}
 }
+
+// name token:
 
 /**
 * TODO: create slice in the beginning and append afterwards with tokens

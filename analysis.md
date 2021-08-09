@@ -48,3 +48,5 @@
 
 - checks in component or in each component
 - separate into packages
+
+- 2 more scanners: brackets, arbitrary names (UpperCase | LowerCase + Any)
