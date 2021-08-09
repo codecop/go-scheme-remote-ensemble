@@ -16,6 +16,7 @@ var scanners = []Scanner{
 	NewBoolScanner(),
 	NewNumberScanner(),
 	NewParenthesisScanner(),
+	NewNameScanner(),
 }
 
 func Scan(cleanedString string) ([]Token, error) {

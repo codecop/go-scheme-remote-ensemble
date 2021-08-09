@@ -132,6 +132,12 @@ func TestScanner(t *testing.T) {
 			scanner:       tokenizer.NewParenthesisScanner(),
 			expectedToken: tokenizer.ParenthesisToken{Value: ")"},
 		},
+		{
+			name:          "is name token with value camelCase",
+			cleanedString: "camelCase",
+			scanner:       tokenizer.NewNameScanner(),
+			expectedToken: tokenizer.NameToken{Value: "camelCase"},
+		},
 	}
 
 	for _, tt := range testCases {
