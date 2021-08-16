@@ -22,10 +22,6 @@ var scanners = []Scanner{
 }
 
 func Scan(input string) ([]Token, error) {
-	if len(input) == 0 {
-		return nil, nil
-	}
-
 	terms := createTerms(input)
 	tokens := createTokens(terms)
 

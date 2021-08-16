@@ -19,7 +19,7 @@ func TestTokenizes(t *testing.T) {
 		{
 			name:           "Empty String Tokenizes Into Empty",
 			input:          "",
-			expectedTokens: nil,
+			expectedTokens: []tokenizer.Token{},
 		},
 		{
 			name:           "number",
