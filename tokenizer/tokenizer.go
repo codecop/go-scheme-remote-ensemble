@@ -24,8 +24,13 @@ func Scan(cleanedString string) ([]Token, error) {
 	if len(cleanedString) == 0 {
 		return nil, nil
 	}
+
+	addSpacesToBrackets := regexp.MustCompile(`(\(|\))`)
+
+	cleanedString = addSpacesToBrackets.ReplaceAllString(cleanedString, " $1 ")
 	regex := regexp.MustCompile("\\s")
 	terms := regex.Split(cleanedString, -1)
+
 	tokens := []Token{}
 
 	for _, term := range terms {
