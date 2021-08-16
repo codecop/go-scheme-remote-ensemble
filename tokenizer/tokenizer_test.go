@@ -73,6 +73,11 @@ func TestTokenizesWithoutErrors(t *testing.T) {
 			cleanedString:  "foo",
 			expectedTokens: []tokenizer.Token{tokenizer.NameToken{Value: "foo"}},
 		},
+		// {
+		// 	name:           "two names string",
+		// 	cleanedString:  "foo bar",
+		// 	expectedTokens: []tokenizer.Token{tokenizer.NameToken{Value: "foo"}, tokenizer.NameToken{Value: "bar"}},
+		// },
 	}
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {

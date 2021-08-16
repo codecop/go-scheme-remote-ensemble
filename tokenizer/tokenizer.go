@@ -24,10 +24,15 @@ func Scan(cleanedString string) ([]Token, error) {
 		return nil, nil
 	}
 
+	tokens := []Token{}
+
 	for _, scanner := range scanners {
 		if scanner.IsToken(cleanedString) {
-			return []Token{scanner.NewToken(cleanedString)}, nil
+			tokens = append(tokens, scanner.NewToken(cleanedString))
 		}
+	}
+	if len(tokens) > 0 {
+		return tokens, nil
 	}
 
 	return nil, fmt.Errorf("no valid token %s", cleanedString)
