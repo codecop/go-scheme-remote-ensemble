@@ -26,7 +26,7 @@ func Scan(cleanedString string) ([]Token, error) {
 		return nil, nil
 	}
 
-	terms := createTermsFrom(cleanedString)
+	terms := createTerms(cleanedString)
 	tokens := createTokens(terms)
 
 	if len(tokens) > 0 {
@@ -37,12 +37,10 @@ func Scan(cleanedString string) ([]Token, error) {
 
 }
 
-func createTermsFrom(cleanedString string) []string {
+func createTerms(cleanedString string) []string {
 	addSpacesToBrackets := regexp.MustCompile(`(\(|\))`)
-
 	spacedString := addSpacesToBrackets.ReplaceAllString(cleanedString, " $1 ")
-	terms := strings.Fields(spacedString)
-	return terms
+	return strings.Fields(spacedString)
 }
 
 func createTokens(terms []string) []Token {
@@ -55,6 +53,7 @@ func createTokens(terms []string) []Token {
 			}
 		}
 	}
+
 	return tokens
 }
 
