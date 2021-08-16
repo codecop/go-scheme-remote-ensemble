@@ -22,6 +22,11 @@ func TestTokenizes(t *testing.T) {
 			expectedTokens: []tokenizer.Token{},
 		},
 		{
+			name:           "Whitespace tokenizes Into empty",
+			input:          " \t  \n  ",
+			expectedTokens: []tokenizer.Token{},
+		},
+		{
 			name:           "number",
 			input:          "1",
 			expectedTokens: []tokenizer.Token{tokenizer.NumberToken{Value: 1}},
