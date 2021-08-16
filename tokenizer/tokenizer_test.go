@@ -1,18 +1,3 @@
-/*
-Tokenizer
-- input:
-    - string
-    - cleaned
-- output:
-    - list of tokens
-        - what type is it? (e.g. slice, linked list, interface, struct)
-        - brackets, identifiers (func names, variables), values (number, "string", boolean #t#f, other literals)
-        - ignore symbols
-        - (extend later if necessary)
-    - token (struct, interface)
-        - value (e.g. identifier -> string, number -> number, bracket -> nil)
-        - type
-*/
 package tokenizer_test
 
 import (
@@ -39,37 +24,22 @@ func TestTokenizesWithoutErrors(t *testing.T) {
 		expectedTokens []tokenizer.Token
 	}{
 		{
-			name:           "number 1",
+			name:           "number",
 			cleanedString:  "1",
 			expectedTokens: []tokenizer.Token{tokenizer.NumberToken{Value: 1}},
 		},
 		{
-			name:           "number 3",
-			cleanedString:  "3",
-			expectedTokens: []tokenizer.Token{tokenizer.NumberToken{Value: 3}},
-		},
-		{
-			name:           "boolean true",
+			name:           "boolean",
 			cleanedString:  "#t",
 			expectedTokens: []tokenizer.Token{tokenizer.BooleanToken{Value: true}},
 		},
 		{
-			name:           "boolean false",
-			cleanedString:  "#f",
-			expectedTokens: []tokenizer.Token{tokenizer.BooleanToken{Value: false}},
-		},
-		{
-			name:           "left parenthesis",
+			name:           "parenthesis",
 			cleanedString:  "(",
 			expectedTokens: []tokenizer.Token{tokenizer.ParenthesisToken{Value: "("}},
 		},
 		{
-			name:           "right parenthesis",
-			cleanedString:  ")",
-			expectedTokens: []tokenizer.Token{tokenizer.ParenthesisToken{Value: ")"}},
-		},
-		{
-			name:           "name string",
+			name:           "name",
 			cleanedString:  "foo",
 			expectedTokens: []tokenizer.Token{tokenizer.NameToken{Value: "foo"}},
 		},
@@ -88,6 +58,7 @@ func TestTokenizesWithoutErrors(t *testing.T) {
 			},
 		},
 	}
+
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
 			tokens, err := tokenizer.Scan(tt.cleanedString)
@@ -110,59 +81,11 @@ func TestTokenizesWithErrors(t *testing.T) {
 			expectedError: fmt.Errorf("no valid token #tt"),
 		},
 	}
+
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
 			_, err := tokenizer.Scan(tt.cleanedString)
 			assert.Equal(tt.expectedError, err)
-		})
-	}
-}
-
-func TestScanner(t *testing.T) {
-	a := assert.New(t)
-
-	testCases := []struct {
-		name          string
-		cleanedString string
-		expectedToken tokenizer.Token
-		scanner       tokenizer.Scanner
-	}{
-		{
-			name:          "is bool token with value true",
-			cleanedString: "#t",
-			scanner:       tokenizer.NewBoolScanner(),
-			expectedToken: tokenizer.BooleanToken{Value: true},
-		},
-		{
-			name:          "is number token with value 666",
-			cleanedString: "666",
-			scanner:       tokenizer.NewNumberScanner(),
-			expectedToken: tokenizer.NumberToken{Value: 666},
-		},
-		{
-			name:          "is parenthesis token with value (",
-			cleanedString: "(",
-			scanner:       tokenizer.NewParenthesisScanner(),
-			expectedToken: tokenizer.ParenthesisToken{Value: "("},
-		},
-		{
-			name:          "is parenthesis token with value )",
-			cleanedString: ")",
-			scanner:       tokenizer.NewParenthesisScanner(),
-			expectedToken: tokenizer.ParenthesisToken{Value: ")"},
-		},
-		{
-			name:          "is name token with value camelCase",
-			cleanedString: "camelCase",
-			scanner:       tokenizer.NewNameScanner(),
-			expectedToken: tokenizer.NameToken{Value: "camelCase"},
-		},
-	}
-
-	for _, tt := range testCases {
-		t.Run(tt.name, func(t *testing.T) {
-			a.True(tt.scanner.IsToken(tt.cleanedString))
-			a.Equal(tt.expectedToken, tt.scanner.NewToken(tt.cleanedString))
 		})
 	}
 }
