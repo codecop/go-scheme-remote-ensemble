@@ -3,6 +3,7 @@ package tokenizer
 import (
 	"fmt"
 	"regexp"
+	"strings"
 )
 
 type Token interface {
@@ -25,12 +26,26 @@ func Scan(cleanedString string) ([]Token, error) {
 		return nil, nil
 	}
 
+	terms := createTermsFrom(cleanedString)
+	tokens := createTokens(terms)
+
+	if len(tokens) > 0 {
+		return tokens, nil
+	} else {
+		return nil, fmt.Errorf("no valid token %s", cleanedString)
+	}
+
+}
+
+func createTermsFrom(cleanedString string) []string {
 	addSpacesToBrackets := regexp.MustCompile(`(\(|\))`)
 
-	cleanedString = addSpacesToBrackets.ReplaceAllString(cleanedString, " $1 ")
-	regex := regexp.MustCompile("\\s")
-	terms := regex.Split(cleanedString, -1)
+	spacedString := addSpacesToBrackets.ReplaceAllString(cleanedString, " $1 ")
+	terms := strings.Fields(spacedString)
+	return terms
+}
 
+func createTokens(terms []string) []Token {
 	tokens := []Token{}
 
 	for _, term := range terms {
@@ -40,12 +55,7 @@ func Scan(cleanedString string) ([]Token, error) {
 			}
 		}
 	}
-
-	if len(tokens) > 0 {
-		return tokens, nil
-	}
-
-	return nil, fmt.Errorf("no valid token %s", cleanedString)
+	return tokens
 }
 
 /**
