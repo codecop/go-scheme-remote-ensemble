@@ -29,7 +29,7 @@ func Scan(input string) ([]Token, error) {
 	terms := createTerms(input)
 	tokens := createTokens(terms)
 
-	if len(tokens) > 0 {
+	if len(tokens) == len(terms) {
 		return tokens, nil
 	} else {
 		return nil, fmt.Errorf("no valid token %s", input)

@@ -90,11 +90,11 @@ func TestTokenizesWithErrors(t *testing.T) {
 			input:         "#tt",
 			expectedError: fmt.Errorf("no valid token #tt"),
 		},
-		// {
-		// 	name:          "unhandled token in middle",
-		// 	input:         "(#tt)",
-		// 	expectedError: fmt.Errorf("no valid token #tt"),
-		// },
+		{
+			name:          "unhandled token in middle",
+			input:         "(#tt)",
+			expectedError: fmt.Errorf("no valid token (#tt)"),
+		},
 	}
 
 	for _, testCase := range testCases {
