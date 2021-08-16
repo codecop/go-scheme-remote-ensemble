@@ -2,7 +2,7 @@ package tokenizer
 
 import (
 	"fmt"
-	"strings"
+	"regexp"
 )
 
 type Token interface {
@@ -24,7 +24,8 @@ func Scan(cleanedString string) ([]Token, error) {
 	if len(cleanedString) == 0 {
 		return nil, nil
 	}
-	terms := strings.Fields(cleanedString)
+	regex := regexp.MustCompile("\\s")
+	terms := regex.Split(cleanedString, -1)
 	tokens := []Token{}
 
 	for _, term := range terms {
