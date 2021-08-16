@@ -55,6 +55,18 @@ func TestTokenizes(t *testing.T) {
 				tokenizer.ParenthesisToken{Value: ")"},
 			},
 		},
+		{
+			name:  "splitting on mixed space/parenthesis",
+			input: "  (\t foo\n ( -1 ))  ",
+			expectedTokens: []tokenizer.Token{
+				tokenizer.ParenthesisToken{Value: "("},
+				tokenizer.NameToken{Value: "foo"},
+				tokenizer.ParenthesisToken{Value: "("},
+				tokenizer.NumberToken{Value: -1},
+				tokenizer.ParenthesisToken{Value: ")"},
+				tokenizer.ParenthesisToken{Value: ")"},
+			},
+		},
 	}
 
 	for _, testCase := range testCases {
@@ -78,6 +90,11 @@ func TestTokenizesWithErrors(t *testing.T) {
 			input:         "#tt",
 			expectedError: fmt.Errorf("no valid token #tt"),
 		},
+		// {
+		// 	name:          "unhandled token in middle",
+		// 	input:         "(#tt)",
+		// 	expectedError: fmt.Errorf("no valid token #tt"),
+		// },
 	}
 
 	for _, testCase := range testCases {
