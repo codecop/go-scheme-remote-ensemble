@@ -9,48 +9,46 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEmptyStringTokenizesIntoEmpty(t *testing.T) {
-	cleanedString := ""
-	tokens, err := tokenizer.Scan(cleanedString)
-	assert.Nil(t, tokens)
-	assert.NoError(t, err)
-}
-
-func TestTokenizesWithoutErrors(t *testing.T) {
+func TestTokenizes(t *testing.T) {
 	assert := assert.New(t)
 	testCases := []struct {
 		name           string
-		cleanedString  string
+		input          string
 		expectedTokens []tokenizer.Token
 	}{
 		{
+			name:           "Empty String Tokenizes Into Empty",
+			input:          "",
+			expectedTokens: nil,
+		},
+		{
 			name:           "number",
-			cleanedString:  "1",
+			input:          "1",
 			expectedTokens: []tokenizer.Token{tokenizer.NumberToken{Value: 1}},
 		},
 		{
 			name:           "boolean",
-			cleanedString:  "#t",
+			input:          "#t",
 			expectedTokens: []tokenizer.Token{tokenizer.BooleanToken{Value: true}},
 		},
 		{
 			name:           "parenthesis",
-			cleanedString:  "(",
+			input:          "(",
 			expectedTokens: []tokenizer.Token{tokenizer.ParenthesisToken{Value: "("}},
 		},
 		{
 			name:           "name",
-			cleanedString:  "foo",
+			input:          "foo",
 			expectedTokens: []tokenizer.Token{tokenizer.NameToken{Value: "foo"}},
 		},
 		{
 			name:           "splitting at the blank",
-			cleanedString:  "foo bar",
+			input:          "foo bar",
 			expectedTokens: []tokenizer.Token{tokenizer.NameToken{Value: "foo"}, tokenizer.NameToken{Value: "bar"}},
 		},
 		{
-			name:          "splitting by parenthesis",
-			cleanedString: "(foo)",
+			name:  "splitting by parenthesis",
+			input: "(foo)",
 			expectedTokens: []tokenizer.Token{
 				tokenizer.ParenthesisToken{Value: "("},
 				tokenizer.NameToken{Value: "foo"},
@@ -59,10 +57,10 @@ func TestTokenizesWithoutErrors(t *testing.T) {
 		},
 	}
 
-	for _, tt := range testCases {
-		t.Run(tt.name, func(t *testing.T) {
-			tokens, err := tokenizer.Scan(tt.cleanedString)
-			assert.Equal(tt.expectedTokens, tokens)
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			tokens, err := tokenizer.Scan(testCase.input)
+			assert.Equal(testCase.expectedTokens, tokens)
 			assert.NoError(err)
 		})
 	}
@@ -72,20 +70,20 @@ func TestTokenizesWithErrors(t *testing.T) {
 	assert := assert.New(t)
 	testCases := []struct {
 		name          string
-		cleanedString string
+		input         string
 		expectedError error
 	}{
 		{
 			name:          "unhandled token",
-			cleanedString: "#tt",
+			input:         "#tt",
 			expectedError: fmt.Errorf("no valid token #tt"),
 		},
 	}
 
-	for _, tt := range testCases {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := tokenizer.Scan(tt.cleanedString)
-			assert.Equal(tt.expectedError, err)
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			_, err := tokenizer.Scan(testCase.input)
+			assert.Equal(testCase.expectedError, err)
 		})
 	}
 }

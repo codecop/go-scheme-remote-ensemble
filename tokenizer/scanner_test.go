@@ -13,64 +13,64 @@ func TestScanners(t *testing.T) {
 
 	testCases := []struct {
 		name          string
-		cleanedString string
+		token         string
+		usingScanner  tokenizer.Scanner
 		expectedToken tokenizer.Token
-		scanner       tokenizer.Scanner
 	}{
 		{
 			name:          "is bool token with value true",
-			cleanedString: "#t",
-			scanner:       tokenizer.NewBoolScanner(),
+			token:         "#t",
+			usingScanner:  tokenizer.NewBoolScanner(),
 			expectedToken: tokenizer.BooleanToken{Value: true},
 		},
 		{
 			name:          "boolean false",
-			cleanedString: "#f",
-			scanner:       tokenizer.NewBoolScanner(),
+			token:         "#f",
+			usingScanner:  tokenizer.NewBoolScanner(),
 			expectedToken: tokenizer.BooleanToken{Value: false},
 		},
 		{
 			name:          "number 1",
-			cleanedString: "1",
-			scanner:       tokenizer.NewNumberScanner(),
+			token:         "1",
+			usingScanner:  tokenizer.NewNumberScanner(),
 			expectedToken: tokenizer.NumberToken{Value: 1},
 		},
 		{
 			name:          "number 3",
-			cleanedString: "3",
-			scanner:       tokenizer.NewNumberScanner(),
+			token:         "3",
+			usingScanner:  tokenizer.NewNumberScanner(),
 			expectedToken: tokenizer.NumberToken{Value: 3},
 		},
 		{
 			name:          "is number token with value 666",
-			cleanedString: "666",
-			scanner:       tokenizer.NewNumberScanner(),
+			token:         "666",
+			usingScanner:  tokenizer.NewNumberScanner(),
 			expectedToken: tokenizer.NumberToken{Value: 666},
 		},
 		{
 			name:          "is parenthesis token with value (",
-			cleanedString: "(",
-			scanner:       tokenizer.NewParenthesisScanner(),
+			token:         "(",
+			usingScanner:  tokenizer.NewParenthesisScanner(),
 			expectedToken: tokenizer.ParenthesisToken{Value: "("},
 		},
 		{
 			name:          "is parenthesis token with value )",
-			cleanedString: ")",
-			scanner:       tokenizer.NewParenthesisScanner(),
+			token:         ")",
+			usingScanner:  tokenizer.NewParenthesisScanner(),
 			expectedToken: tokenizer.ParenthesisToken{Value: ")"},
 		},
 		{
 			name:          "is name token with value camelCase",
-			cleanedString: "camelCase",
-			scanner:       tokenizer.NewNameScanner(),
+			token:         "camelCase",
+			usingScanner:  tokenizer.NewNameScanner(),
 			expectedToken: tokenizer.NameToken{Value: "camelCase"},
 		},
 	}
 
-	for _, tt := range testCases {
-		t.Run(tt.name, func(t *testing.T) {
-			a.True(tt.scanner.IsToken(tt.cleanedString))
-			a.Equal(tt.expectedToken, tt.scanner.NewToken(tt.cleanedString))
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			a.True(testCase.usingScanner.IsToken(testCase.token))
+			a.Equal(testCase.expectedToken, testCase.usingScanner.NewToken(testCase.token))
 		})
 	}
 }

@@ -21,26 +21,25 @@ var scanners = []Scanner{
 	NewNameScanner(),
 }
 
-func Scan(cleanedString string) ([]Token, error) {
-	if len(cleanedString) == 0 {
+func Scan(input string) ([]Token, error) {
+	if len(input) == 0 {
 		return nil, nil
 	}
 
-	terms := createTerms(cleanedString)
+	terms := createTerms(input)
 	tokens := createTokens(terms)
 
 	if len(tokens) > 0 {
 		return tokens, nil
 	} else {
-		return nil, fmt.Errorf("no valid token %s", cleanedString)
+		return nil, fmt.Errorf("no valid token %s", input)
 	}
-
 }
 
-func createTerms(cleanedString string) []string {
+func createTerms(input string) []string {
 	addSpacesToBrackets := regexp.MustCompile(`(\(|\))`)
-	spacedString := addSpacesToBrackets.ReplaceAllString(cleanedString, " $1 ")
-	return strings.Fields(spacedString)
+	spacedInput := addSpacesToBrackets.ReplaceAllString(input, " $1 ")
+	return strings.Fields(spacedInput)
 }
 
 func createTokens(terms []string) []Token {
@@ -58,9 +57,5 @@ func createTokens(terms []string) []Token {
 }
 
 /**
-* TODO: create slice in the beginning and append afterwards with tokens
- */
-
-/**
-* parents (), edged brackets <>, square brackets [], curly braces {}
+ * Wording: parents (), edged brackets <>, square brackets [], curly braces {}
  */

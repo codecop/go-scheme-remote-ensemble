@@ -7,8 +7,8 @@ type NameToken struct {
 }
 
 func IsNameToken(token string) bool {
-	name := regexp.MustCompile("^[a-zA-Z]+$")
-	return name.MatchString(token)
+	identifier := regexp.MustCompile("^[a-zA-Z]+$")
+	return identifier.MatchString(token)
 }
 
 func NewNameToken(token string) Token {
