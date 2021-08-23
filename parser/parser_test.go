@@ -22,6 +22,7 @@ func TestParses(t *testing.T) {
 			tokens:      []tokenizer.Token{},
 			expectedAst: parser.NewRoot(),
 		},
+		// root -> slice -> nodes -> slice -> boolean node
 		// {
 		// 	name: "Function evaluation (foo)",
 		// 	tokens: []tokenizer.Token{
@@ -51,4 +52,16 @@ func TestParses(t *testing.T) {
 			assert.NoError(err)
 		})
 	}
+}
+
+func TestBooleanTokenParsesIntoBooleanNode(t *testing.T) {
+	assert := assert.New(t)
+
+	tokens := []tokenizer.Token{tokenizer.NewBooleanToken("#t")}
+	ast, err := parser.Parse(tokens)
+
+	node := ast.GetFirstChild()
+	assert.Equal(parser.NewBooleanNode(true), node)
+	// assert no other children
+	assert.NoError(err)
 }
