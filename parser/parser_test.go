@@ -20,28 +20,28 @@ func TestParses(t *testing.T) {
 		{
 			name:        "Empty tokens parses into empty",
 			tokens:      []tokenizer.Token{},
-			expectedAst: nil,
+			expectedAst: parser.NewRoot(),
 		},
-		{
-			name: "Function evaluation (foo)",
-			tokens: []tokenizer.Token{
-				tokenizer.NewParenthesisToken("("),
-				tokenizer.NewNameToken("foo"),
-				tokenizer.NewParenthesisToken(")"),
-			},
-			expectedAst: nil,
-		},
-		{
-			name: "Function evaluation with arguments (+ 1 2)",
-			tokens: []tokenizer.Token{
-				tokenizer.NewParenthesisToken("("),
-				tokenizer.NewNameToken("plus"),
-				tokenizer.NewNumberToken("1"),
-				tokenizer.NewNumberToken("2"),
-				tokenizer.NewParenthesisToken(")"),
-			},
-			expectedAst: nil,
-		},
+		// {
+		// 	name: "Function evaluation (foo)",
+		// 	tokens: []tokenizer.Token{
+		// 		tokenizer.NewParenthesisToken("("),
+		// 		tokenizer.NewNameToken("foo"),
+		// 		tokenizer.NewParenthesisToken(")"),
+		// 	},
+		// 	expectedAst: nil,
+		// },
+		// {
+		// 	name: "Function evaluation with arguments (+ 1 2)",
+		// 	tokens: []tokenizer.Token{
+		// 		tokenizer.NewParenthesisToken("("),
+		// 		tokenizer.NewNameToken("plus"),
+		// 		tokenizer.NewNumberToken("1"),
+		// 		tokenizer.NewNumberToken("2"),
+		// 		tokenizer.NewParenthesisToken(")"),
+		// 	},
+		// 	expectedAst: nil,
+		// },
 	}
 
 	for _, testCase := range testCases {
