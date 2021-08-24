@@ -21,7 +21,7 @@ func TestEmptyTokensParseIntoEmpty(t *testing.T) {
 func TestBooleanTokenParsesIntoBooleanNode(t *testing.T) {
 	assert := assert.New(t)
 
-	tokens := []tokenizer.Token{tokenizer.NewBooleanToken("#t")}
+	tokens := []tokenizer.Token{tokenizer.NewBoolScanner().NewToken("#t")}
 	ast, err := parser.Parse(tokens)
 
 	node := ast.GetFirstChild()

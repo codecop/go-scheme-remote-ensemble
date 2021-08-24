@@ -6,18 +6,20 @@ type BooleanToken struct {
 	Value bool
 }
 
-func IsBooleanToken(token string) bool {
+func isBooleanToken(token string) bool {
 	trueOrFalse := regexp.MustCompile("^#[tf]$")
 	return trueOrFalse.MatchString(token)
 }
 
-func NewBooleanToken(token string) Token {
+func newBooleanToken(token string) Token {
 	return BooleanToken{Value: token == "#t"}
 }
 
+// TODO cleanup Tokenizer: Inconsistent name NewBoolScanner <-> NewBooleanScanner
+
 func NewBoolScanner() Scanner {
 	return Scanner{
-		IsToken:  IsBooleanToken,
-		NewToken: NewBooleanToken,
+		IsToken:  isBooleanToken,
+		NewToken: newBooleanToken,
 	}
 }
