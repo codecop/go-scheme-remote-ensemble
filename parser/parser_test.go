@@ -26,24 +26,24 @@ func TestBooleanTokenParsesIntoBooleanNode(t *testing.T) {
 
 	node := ast.GetFirstChild()
 	assert.Equal(parser.NewBooleanNode(true), node)
-	// assert no other children
+	// TODO assert no other children
 	assert.NoError(err)
 }
 
-// TODO make these tests pass
+// TODO (later) make these tests pass to continue with logic
 
-// 	name: "Function evaluation (foo)",
-// 	tokens: []tokenizer.Token{
-// 		tokenizer.NewParenthesisToken("("),
-// 		tokenizer.NewNameToken("foo"),
-// 		tokenizer.NewParenthesisToken(")"),
-// 	},
+// 	Function Evaluation
+// 	tokens := []tokenizer.Token{
+// 		tokenizer.NewParenthesisScanner().NewToken("("),
+// 		tokenizer.NewNameScanner().NewToken("foo"),
+// 		tokenizer.NewParenthesisScanner().NewToken(")"),
+// 	}
 
-// 	name: "Function evaluation with arguments (+ 1 2)",
-// 	tokens: []tokenizer.Token{
-// 		tokenizer.NewParenthesisToken("("),
-// 		tokenizer.NewNameToken("plus"),
-// 		tokenizer.NewNumberToken("1"),
-// 		tokenizer.NewNumberToken("2"),
-// 		tokenizer.NewParenthesisToken(")"),
-// 	},
+// 	Function Evaluation With Arguments
+// 	tokens := []tokenizer.Token{
+// 		tokenizer.NewParenthesisScanner().NewToken("("),
+// 		tokenizer.NewNameScanner().NewToken("plus"),
+// 		tokenizer.NewNumberScanner().NewToken("1"),
+// 		tokenizer.NewNumberScanner().NewToken("2"),
+// 		tokenizer.NewParenthesisScanner().NewToken(")"),
+// 	}

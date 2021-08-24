@@ -7,6 +7,9 @@ type Ast interface {
 	addChild(child Ast) error
 }
 
+// TODO cleanup Parser: split different nodes into separate files
+
+// TODO cleanup Parser: inconsistent node names: Root vs. RootNode
 type Root struct {
 	children []Ast
 }
