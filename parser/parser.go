@@ -14,8 +14,10 @@ func Parse(tokens []tokenizer.Token) (Ast, error) {
 	if len(tokens) > 0 {
 		if booleanToken, isBooleanToken := tokens[0].(tokenizer.BooleanToken); isBooleanToken {
 			root.addChild(NewBooleanNode(booleanToken.Value))
-		} else {
-			root.addChild(NewNumberNode(42))
+		}
+
+		if numberToken, isNumberToken := tokens[0].(tokenizer.NumberToken); isNumberToken {
+			root.addChild(NewNumberNode(numberToken.Value))
 		}
 	}
 	return root, nil
