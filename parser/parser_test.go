@@ -54,10 +54,29 @@ func TestNumberTokenParsesIntoNumberNode(t *testing.T) {
 
 // TODO (later) make these tests pass to continue with logic
 
+func TestParsesFunctionCall(t *testing.T) {
+	t.Skip()
+
+	assert := assert.New(t)
+
+	tokens := []tokenizer.Token{
+		tokenizer.NewParenthesisScanner().NewToken("("),
+		tokenizer.NewNameScanner().NewToken("list"),
+		tokenizer.NewParenthesisScanner().NewToken(")"),
+	}
+	ast, err := parser.Parse(tokens)
+
+	node := ast.GetFirstChild()
+	assert.Equal(parser.NewFunctionNode("list"), node)
+
+	// TODO assert node to have no children (due to arguments)
+	assert.NoError(err)
+}
+
 // 	Function Evaluation
 // 	tokens := []tokenizer.Token{
 // 		tokenizer.NewParenthesisScanner().NewToken("("),
-// 		tokenizer.NewNameScanner().NewToken("foo"),
+// 		tokenizer.NewNameScanner().NewToken("list"),
 // 		tokenizer.NewParenthesisScanner().NewToken(")"),
 // 	}
 
