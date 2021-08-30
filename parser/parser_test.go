@@ -30,6 +30,18 @@ func TestBooleanTokenParsesIntoBooleanNode(t *testing.T) {
 	assert.NoError(err)
 }
 
+func TestNumberTokenParsesIntoNumberNode(t *testing.T) {
+	assert := assert.New(t)
+
+	tokens := []tokenizer.Token{tokenizer.NewNumberScanner().NewToken("42")}
+	ast, err := parser.Parse(tokens)
+
+	node := ast.GetFirstChild()
+	assert.Equal(parser.NewNumberNode(42), node)
+	// TODO assert no other children
+	assert.NoError(err)
+}
+
 // TODO (later) make these tests pass to continue with logic
 
 // 	Function Evaluation
