@@ -7,10 +7,8 @@ type Ast interface {
 	addChild(child Ast) error
 }
 
-// TODO cleanup Parser: inconsistent node names: Root vs. RootNode
-
 func Parse(tokens []tokenizer.Token) (Ast, error) {
-	root := NewRoot()
+	root := NewRootNode()
 	if len(tokens) > 0 {
 		root.addChild(NewBooleanNode(true))
 	}

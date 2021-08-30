@@ -1,18 +1,18 @@
 package parser
 
-type Root struct {
+type RootNode struct {
 	children []Ast
 }
 
-func NewRoot() Ast {
-	return &Root{children: make([]Ast, 0)}
+func NewRootNode() Ast {
+	return &RootNode{children: make([]Ast, 0)}
 }
 
-func (r Root) GetFirstChild() Ast {
+func (r RootNode) GetFirstChild() Ast {
 	return r.children[0]
 }
 
-func (r *Root) addChild(child Ast) error {
+func (r *RootNode) addChild(child Ast) error {
 	r.children = append(r.children, child)
 	return nil
 }

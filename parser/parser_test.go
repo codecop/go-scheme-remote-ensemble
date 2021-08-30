@@ -14,7 +14,7 @@ func TestEmptyTokensParseIntoEmpty(t *testing.T) {
 
 	ast, err := parser.Parse([]tokenizer.Token{})
 
-	assert.Equal(parser.NewRoot(), ast)
+	assert.Equal(parser.NewRootNode(), ast)
 	assert.NoError(err)
 }
 
