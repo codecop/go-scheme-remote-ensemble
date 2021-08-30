@@ -18,7 +18,7 @@ func TestEmptyTokensParseIntoEmpty(t *testing.T) {
 	assert.NoError(err)
 }
 
-func TestBooleanTokenParsesIntoBooleanNode(t *testing.T) {
+func TestBooleanTokenParsesIntoTrueBooleanNode(t *testing.T) {
 	assert := assert.New(t)
 
 	tokens := []tokenizer.Token{tokenizer.NewBoolScanner().NewToken("#t")}
@@ -28,6 +28,16 @@ func TestBooleanTokenParsesIntoBooleanNode(t *testing.T) {
 	assert.Equal(parser.NewBooleanNode(true), node)
 	// TODO assert no other children
 	assert.NoError(err)
+}
+
+func TestBooleanTokenParsesIntoFalseBooleanNode(t *testing.T) {
+	assert := assert.New(t)
+
+	tokens := []tokenizer.Token{tokenizer.NewBoolScanner().NewToken("#f")}
+	ast, _ := parser.Parse(tokens)
+
+	node := ast.GetFirstChild()
+	assert.Equal(parser.NewBooleanNode(false), node)
 }
 
 func TestNumberTokenParsesIntoNumberNode(t *testing.T) {
