@@ -7,25 +7,7 @@ type Ast interface {
 	addChild(child Ast) error
 }
 
-// TODO cleanup Parser: split different nodes into separate files
-
 // TODO cleanup Parser: inconsistent node names: Root vs. RootNode
-type Root struct {
-	children []Ast
-}
-
-func NewRoot() Ast {
-	return &Root{children: make([]Ast, 0)}
-}
-
-func (r Root) GetFirstChild() Ast {
-	return r.children[0]
-}
-
-func (r *Root) addChild(child Ast) error {
-	r.children = append(r.children, child)
-	return nil
-}
 
 func Parse(tokens []tokenizer.Token) (Ast, error) {
 	root := NewRoot()
@@ -33,20 +15,4 @@ func Parse(tokens []tokenizer.Token) (Ast, error) {
 		root.addChild(NewBooleanNode(true))
 	}
 	return root, nil
-}
-
-func NewBooleanNode(value bool) Ast {
-	return &BooleanNode{value: value}
-}
-
-type BooleanNode struct {
-	value bool
-}
-
-func (bn BooleanNode) GetFirstChild() Ast {
-	return nil
-}
-
-func (bn *BooleanNode) addChild(child Ast) error {
-	panic("not implemented")
 }
