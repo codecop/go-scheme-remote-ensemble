@@ -6,7 +6,7 @@ import (
 
 type Ast interface {
 	GetFirstChild() Ast
-	addChild(child Ast) error
+	addChild(child Ast) error // TODO handle error or remove error on addChild()
 }
 
 func Parse(tokens []tokenizer.Token) (Ast, error) {

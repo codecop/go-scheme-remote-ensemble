@@ -13,5 +13,6 @@ func (nn NumberNode) GetFirstChild() Ast {
 }
 
 func (nn *NumberNode) addChild(child Ast) error {
+    // TODO empty implementations are LSP violations, can we get rid of this method?
 	panic("not implemented")
 }

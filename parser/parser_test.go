@@ -18,7 +18,7 @@ func TestEmptyTokensParseIntoEmpty(t *testing.T) {
 	assert.NoError(err)
 }
 
-func TestBooleanTokenParsesIntoTrueBooleanNode(t *testing.T) {
+func TestTrueBooleanTokenParsesIntoBooleanNode(t *testing.T) {
 	assert := assert.New(t)
 
 	tokens := []tokenizer.Token{tokenizer.NewBoolScanner().NewToken("#t")}
@@ -26,11 +26,11 @@ func TestBooleanTokenParsesIntoTrueBooleanNode(t *testing.T) {
 
 	node := ast.GetFirstChild()
 	assert.Equal(parser.NewBooleanNode(true), node)
-	// TODO assert no other children
+	// TODO assert no other children - when we know how to get them
 	assert.NoError(err)
 }
 
-func TestBooleanTokenParsesIntoFalseBooleanNode(t *testing.T) {
+func TestFalseBooleanTokenParsesIntoBooleanNode(t *testing.T) {
 	assert := assert.New(t)
 
 	tokens := []tokenizer.Token{tokenizer.NewBoolScanner().NewToken("#f")}
@@ -48,14 +48,12 @@ func TestNumberTokenParsesIntoNumberNode(t *testing.T) {
 
 	node := ast.GetFirstChild()
 	assert.Equal(parser.NewNumberNode(42), node)
-	// TODO assert no other children
+	// TODO assert no other children - when we know how to get them
 	assert.NoError(err)
 }
 
-// TODO (later) make these tests pass to continue with logic
-
-func TestParsesFunctionCall(t *testing.T) {
-	t.Skip()
+func TestParsesFunctionCallNode(t *testing.T) {
+	t.Skip("")
 
 	assert := assert.New(t)
 
@@ -68,17 +66,11 @@ func TestParsesFunctionCall(t *testing.T) {
 
 	node := ast.GetFirstChild()
 	assert.Equal(parser.NewFunctionNode("list"), node)
-
-	// TODO assert node to have no children (due to arguments)
+	assert.Nil(node.GetFirstChild()) // no children (due to arguments)
 	assert.NoError(err)
 }
 
-// 	Function Evaluation
-// 	tokens := []tokenizer.Token{
-// 		tokenizer.NewParenthesisScanner().NewToken("("),
-// 		tokenizer.NewNameScanner().NewToken("list"),
-// 		tokenizer.NewParenthesisScanner().NewToken(")"),
-// 	}
+// TODO (later) make these tests pass to continue with logic
 
 // 	Function Evaluation With Arguments
 // 	tokens := []tokenizer.Token{

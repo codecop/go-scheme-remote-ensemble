@@ -13,5 +13,6 @@ func (bn BooleanNode) GetFirstChild() Ast {
 }
 
 func (bn *BooleanNode) addChild(child Ast) error {
+    // TODO empty implementations are LSP violations, can we get rid of this method?
 	panic("not implemented")
 }
