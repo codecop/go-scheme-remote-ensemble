@@ -13,7 +13,8 @@ func Parse(tokens []tokenizer.Token) (Ast, error) {
 	root := NewRootNode()
 	if len(tokens) > 0 {
 		if _, ok := tokens[0].(tokenizer.ParenthesisToken); ok {
-			root.addChild(NewFunctionNode("list"))
+			functionName := tokens[1].(tokenizer.NameToken).Value
+			root.addChild(NewFunctionNode(functionName))
 		}
 
 		if booleanToken, isBooleanToken := tokens[0].(tokenizer.BooleanToken); isBooleanToken {
