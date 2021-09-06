@@ -1,6 +1,7 @@
 package parser_test
 
 import (
+	"fmt"
 	"testing"
 
 	"codecop.org/scheme/parser"
@@ -67,6 +68,20 @@ func TestParsesFunctionCallNode(t *testing.T) {
 	assert.Equal(parser.NewFunctionNode("list"), node)
 	assert.Nil(node.GetFirstChild()) // no children (due to arguments)
 	assert.NoError(err)
+}
+
+func TestParseFunctionCallNeedsClosingParenthesis(t *testing.T) {
+	expectedError := fmt.Errorf("missing closing parenthesis after list")
+
+	assert := assert.New(t)
+
+	tokens := []tokenizer.Token{
+		tokenizer.NewParenthesisScanner().NewToken("("),
+		tokenizer.NewNameScanner().NewToken("list"),
+	}
+	_, err := parser.Parse(tokens)
+
+	assert.Equal(expectedError, err)
 }
 
 // TODO (later) make these tests pass to continue with logic
