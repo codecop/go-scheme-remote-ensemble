@@ -27,7 +27,12 @@ func Parse(tokens []tokenizer.Token) (Ast, error) {
 	root := NewRootNode()
 	if len(tokens) > 0 {
 		if _, ok := tokens[0].(tokenizer.ParenthesisToken); ok {
-			functionName := tokens[1].(tokenizer.NameToken).Value
+
+			nameToken, ok := tokens[1].(tokenizer.NameToken)
+			if !ok {
+				return nil, ParseError{message: fmt.Sprintf(" %s", nameToken)}
+			}
+			functionName := nameToken.Value
 			root.addChild(NewFunctionNode(functionName))
 			if len(tokens) < 3 {
 				return nil, ParseError{message: fmt.Sprintf("missing closing parenthesis after %s", functionName)}

@@ -88,6 +88,20 @@ func TestParseFunctionCallNeedsClosingParenthesis(t *testing.T) {
 	assert.True(strings.Contains(err.Error(), "list"))
 }
 
+func TestParseFunctionCallNeedsName(t *testing.T) {
+	assert := assert.New(t)
+
+	tokens := []tokenizer.Token{
+		tokenizer.NewParenthesisScanner().NewToken("("),
+		tokenizer.NewBoolScanner().NewToken("#f"),
+		tokenizer.NewParenthesisScanner().NewToken(")"),
+	}
+	_, err := parser.Parse(tokens)
+
+	_, ok := err.(parser.ParseError)
+	assert.True(ok)
+}
+
 // TODO (later) make these tests pass to continue with logic
 
 // 	Function Evaluation With Arguments
