@@ -9,7 +9,10 @@ func NewRootNode() Ast {
 }
 
 func (r RootNode) GetFirstChild() Ast {
-	return r.children[0]
+	if len(r.children) > 0 {
+		return r.children[0]
+	}
+	return nil
 }
 
 func (r *RootNode) addChild(child Ast) error {

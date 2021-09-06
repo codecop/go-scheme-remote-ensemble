@@ -53,7 +53,6 @@ func TestNumberTokenParsesIntoNumberNode(t *testing.T) {
 }
 
 func TestParsesFunctionCallNode(t *testing.T) {
-	t.Skip("")
 
 	assert := assert.New(t)
 
