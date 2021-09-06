@@ -6,6 +6,18 @@ import (
 	"codecop.org/scheme/tokenizer"
 )
 
+type ParseError struct {
+	message string
+}
+
+func NewParseError(message string) ParseError {
+	return ParseError{message: message}
+}
+
+func (p ParseError) Error() string {
+	return p.message
+}
+
 type Ast interface {
 	GetFirstChild() Ast
 	addChild(child Ast) error // TODO handle error or remove error on addChild()
@@ -18,7 +30,7 @@ func Parse(tokens []tokenizer.Token) (Ast, error) {
 			functionName := tokens[1].(tokenizer.NameToken).Value
 			root.addChild(NewFunctionNode(functionName))
 			if len(tokens) < 3 {
-				return nil, fmt.Errorf("missing closing parenthesis after %s", "list")
+				return nil, ParseError{message: fmt.Sprintf("missing closing parenthesis after %s", functionName)}
 			}
 		}
 

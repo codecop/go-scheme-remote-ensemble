@@ -1,7 +1,6 @@
 package parser_test
 
 import (
-	"fmt"
 	"testing"
 
 	"codecop.org/scheme/parser"
@@ -71,7 +70,7 @@ func TestParsesFunctionCallNode(t *testing.T) {
 }
 
 func TestParseFunctionCallNeedsClosingParenthesis(t *testing.T) {
-	expectedError := fmt.Errorf("missing closing parenthesis after list")
+	expectedError := parser.NewParseError("missing closing parenthesis after list")
 
 	assert := assert.New(t)
 
