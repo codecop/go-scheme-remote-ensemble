@@ -1,6 +1,7 @@
 package parser_test
 
 import (
+	"strings"
 	"testing"
 
 	"codecop.org/scheme/parser"
@@ -81,6 +82,10 @@ func TestParseFunctionCallNeedsClosingParenthesis(t *testing.T) {
 	_, err := parser.Parse(tokens)
 
 	assert.Equal(expectedError, err)
+	// Alternative check of the type
+	_, ok := err.(parser.ParseError)
+	assert.True(ok)
+	assert.True(strings.Contains(err.Error(), "list"))
 }
 
 // TODO (later) make these tests pass to continue with logic
