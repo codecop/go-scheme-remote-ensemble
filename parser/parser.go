@@ -32,6 +32,7 @@ func Parse(tokens []tokenizer.Token) (Ast, error) {
 	root := newRootNode()
 	if len(tokens) > 0 {
 		if _, ok := tokens[0].(tokenizer.ParenthesisToken); ok {
+		    // TODO is this an opening parenthesis
 			nameToken, ok := tokens[1].(tokenizer.NameToken)
 			if !ok {
 				return nil, ParseError{message: fmt.Sprintf(" %s", nameToken)}
@@ -44,6 +45,7 @@ func Parse(tokens []tokenizer.Token) (Ast, error) {
 				return nil, ParseError{message: fmt.Sprintf("missing closing parenthesis after %s", functionName)}
 			}
 			if _, ok := tokens[2].(tokenizer.ParenthesisToken); !ok {
+   		        // TODO was this a closing parenthesis
 				functionNode.AddChild(NewNumberNode(1))
 			}
 
