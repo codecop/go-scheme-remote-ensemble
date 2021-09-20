@@ -103,13 +103,29 @@ func TestParseFunctionCallNeedsName(t *testing.T) {
 	assert.True(ok)
 }
 
-// TODO (later) make these tests pass to continue with logic
+func TestParsesFunctionCallWithArguments(t *testing.T) {
 
-// 	Function Evaluation With Arguments
-// 	tokens := []tokenizer.Token{
-// 		tokenizer.NewParenthesisScanner().NewToken("("),
-// 		tokenizer.NewNameScanner().NewToken("plus"),
-// 		tokenizer.NewNumberScanner().NewToken("1"),
-// 		tokenizer.NewNumberScanner().NewToken("2"),
-// 		tokenizer.NewParenthesisScanner().NewToken(")"),
-// 	}
+	assert := assert.New(t)
+
+	tokens := []tokenizer.Token{
+		tokenizer.NewParenthesisScanner().NewToken("("),
+		tokenizer.NewNameScanner().NewToken("plus"),
+		tokenizer.NewNumberScanner().NewToken("1"),
+		tokenizer.NewNumberScanner().NewToken("2"),
+		tokenizer.NewParenthesisScanner().NewToken(")"),
+	}
+	_, err := parser.Parse(tokens)
+	assert.NoError(err)
+
+	// node := ast.GetFirstChild()
+	// assertIsFunctionNode(node, "plus", t)
+	// firstArgument := node.GetFirstChild()
+	// assertIsNumberNode(firstArgument, 1, t)
+
+	// assert.Equal("plus", node.Value())
+	// assert.Equal(1, firstArgument.Value())
+	// typecheck
+
+	// TODO: Check second argument
+
+}

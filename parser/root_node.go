@@ -15,7 +15,7 @@ func (r RootNode) GetFirstChild() Ast {
 	return nil
 }
 
-func (r *RootNode) addChild(child Ast) error {
+func (r *RootNode) AddChild(child Ast) error {
 	r.children = append(r.children, child)
 	return nil
 }

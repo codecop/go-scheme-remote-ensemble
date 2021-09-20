@@ -19,12 +19,13 @@ func (p ParseError) Error() string {
 }
 
 type Ast interface {
+	// TODO FIRST PRIO add value
 	GetFirstChild() Ast
 }
 
 type astNode interface {
 	Ast
-	addChild(child Ast) error // TODO handle error or remove error on addChild()
+	AddChild(child Ast) error // TODO handle error or remove error on addChild()
 }
 
 func Parse(tokens []tokenizer.Token) (Ast, error) {
@@ -36,18 +37,24 @@ func Parse(tokens []tokenizer.Token) (Ast, error) {
 				return nil, ParseError{message: fmt.Sprintf(" %s", nameToken)}
 			}
 			functionName := nameToken.Value
-			root.addChild(NewFunctionNode(functionName))
+			functionNode := NewFunctionNode(functionName)
+			root.AddChild(functionNode)
+
 			if len(tokens) < 3 {
 				return nil, ParseError{message: fmt.Sprintf("missing closing parenthesis after %s", functionName)}
 			}
+			if _, ok := tokens[2].(tokenizer.ParenthesisToken); !ok {
+				functionNode.AddChild(NewNumberNode(1))
+			}
+
 		}
 
 		if booleanToken, isBooleanToken := tokens[0].(tokenizer.BooleanToken); isBooleanToken {
-			root.addChild(NewBooleanNode(booleanToken.Value))
+			root.AddChild(NewBooleanNode(booleanToken.Value))
 		}
 
 		if numberToken, isNumberToken := tokens[0].(tokenizer.NumberToken); isNumberToken {
-			root.addChild(NewNumberNode(numberToken.Value))
+			root.AddChild(NewNumberNode(numberToken.Value))
 		}
 
 	}
