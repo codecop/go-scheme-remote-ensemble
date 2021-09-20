@@ -4,7 +4,7 @@ type RootNode struct {
 	children []Ast
 }
 
-func NewRootNode() Ast {
+func newRootNode() astNode {
 	return &RootNode{children: make([]Ast, 0)}
 }
 

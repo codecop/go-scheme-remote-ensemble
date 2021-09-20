@@ -20,14 +20,17 @@ func (p ParseError) Error() string {
 
 type Ast interface {
 	GetFirstChild() Ast
+}
+
+type astNode interface {
+	Ast
 	addChild(child Ast) error // TODO handle error or remove error on addChild()
 }
 
 func Parse(tokens []tokenizer.Token) (Ast, error) {
-	root := NewRootNode()
+	root := newRootNode()
 	if len(tokens) > 0 {
 		if _, ok := tokens[0].(tokenizer.ParenthesisToken); ok {
-
 			nameToken, ok := tokens[1].(tokenizer.NameToken)
 			if !ok {
 				return nil, ParseError{message: fmt.Sprintf(" %s", nameToken)}
