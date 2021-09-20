@@ -9,5 +9,6 @@ func NewBooleanNode(value bool) Ast {
 }
 
 func (bn BooleanNode) GetFirstChild() Ast {
+	// TODO re-evaluate interface definition for unspecific structs
 	return nil
 }
