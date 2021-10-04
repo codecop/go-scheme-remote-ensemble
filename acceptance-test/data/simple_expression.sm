@@ -1,1 +1,1 @@
-(print (+ 1 (+ 1 2))) 
+(print (plus 1 (plus 1 2))) 

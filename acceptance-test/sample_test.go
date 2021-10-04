@@ -11,7 +11,7 @@ import (
 
 func TestSystemWorks(t *testing.T) {
 	output, err := exec.Command("../scheme", "acceptance-test/data/simple_expression.sm").Output()
-	assert.NoError(t, err)
 	assert.Equal(t, "4\n", string(output))
+	assert.NoError(t, err)
 
 }

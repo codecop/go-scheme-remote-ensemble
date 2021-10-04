@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 
 	"codecop.org/scheme/parser"
 	"codecop.org/scheme/tokenizer"
@@ -26,4 +27,5 @@ func main() {
 		log.Fatalf("parserizer err: %v", err)
 	}
 	fmt.Printf("test")
+	os.Exit(0)
 }
