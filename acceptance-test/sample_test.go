@@ -10,8 +10,9 @@ import (
 )
 
 func TestSystemWorks(t *testing.T) {
-	output, err := exec.Command("../scheme", "acceptance-test/data/simple_expression.sm").Output()
+	output, err := exec.Command("../scheme", "acceptance-test/data/simple_expression.scm").Output()
 	assert.Equal(t, "4\n", string(output))
 	assert.NoError(t, err)
-
 }
+
+// TODO rename the file to a more reasonable name
